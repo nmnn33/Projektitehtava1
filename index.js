@@ -3,10 +3,11 @@ const PORT = process.env.PORT || 8083; //Portti
 var http = require("http");
 var express = require("express");
 var app = express();    //express-moduuli
+var path = require('path');
 
 //Polut
 
-app.use(express.static("edulab"));   //HTML-sivu expressin kautta, hakee juuri hakemistosta
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/guestbook", function (req, res) {
     res.send("guest!");
