@@ -1,5 +1,5 @@
 //Moduuleja
-const PORT = process.env.PORT || 5000; //Portti
+const PORT = process.env.PORT || 8083; //Portti
 var http = require("http");
 var express = require("express");
 var app = express();    //express-moduuli
