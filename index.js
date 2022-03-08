@@ -6,7 +6,7 @@ var app = express();    //express-moduuli
 
 //Polut
 
-app.use(express.static("./edulab"));   //HTML-sivu expressin kautta, hakee juuri hakemistosta
+app.use(express.static("edulab"));   //HTML-sivu expressin kautta, hakee juuri hakemistosta
 
 app.get("/guestbook", function (req, res) {
     res.send("guest!");
