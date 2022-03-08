@@ -22,6 +22,6 @@ app.get("/ajaxmessage", function (req, res) {
 
 //Web-palvelin
 app.listen(PORT, function () {
-    console.log("Portti 5000 avattu, serveri pystyssä");
-})
+    console.log("Portti 8083 avattu, serveri pystyssä");
+});
 
