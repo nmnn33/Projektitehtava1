@@ -34,10 +34,9 @@
         //JSON taulun muodostus
         $.getJSON("guestbookdata.json", function (json) {
             console.log(json); // this will show the info it in console
-            var taulu = '<table class="table"><thead><th>id</th><th>username</th><th>country</th><th>date</th><th>message</th></thead><tbody>';
+            var taulu = '<table class="table"><thead><th>username</th><th>country</th><th>date</th><th>message</th></thead><tbody>';
             for (var i = 0; i < json.length; i++) {
                 taulu += '<tr>' +
-                    '<td>' + json[i].id + '</td>' +
                     '<td>' + json[i].username + '</td>' +
                     '<td>' + json[i].country + '</td>' +
                     '<td>' + json[i].date + '</td>' +

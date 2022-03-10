@@ -18,26 +18,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //JSON-tiedosto, joka näytetään html tauluna
 app.get("/guestbook", function (req, res) {
-    //index.js kautta tehty taulu, ei tarve, sillä html sisältää tämän
     /*var data = require('./guestbookdata.json'); //json taulu
-    var taulu = '<table border="2px">';
+    var taulu = '<table class="table"><thead><th>username</th><th>country</th><th>date</th><th>message</th></thead><tbody>';
     for (var i = 0; i < data.length; i++) {
         taulu += '<tr>' +
-            '<td>' + data[i].id + '</td>' +
             '<td>' + data[i].username + '</td>' +
             '<td>' + data[i].country + '</td>' +
             '<td>' + data[i].date + '</td>' +
             '<td>' + data[i].message + '</td>' +
             '<tr>';
     }
-    taulu += '</table>'
-    res.send(taulu);*/
+    taulu += '</tbody></table>'*/
     res.sendFile(__dirname + '/public/guestbook.html');
+    //res.send(taulu);
 });
 
 //POST toiminto newmessage
 app.post("/newmessage", function (req, res) {
-    var data = require('./guestbookdata.json'); //json taulu
+    var data = require('./public/guestbookdata.json'); //json taulu
     console.log(req.body);
     var username = req.body.username;
     var country = req.body.country;
@@ -59,7 +57,7 @@ app.post("/newmessage", function (req, res) {
         //json tieto string
         var jsonStr = JSON.stringify(data);
         //json-string kirjoitetaan tiedostoon
-        fs.writeFile('guestbookdata.json', jsonStr, (err) => {
+        fs.writeFile('./public/guestbookdata.json', jsonStr, (err) => {
             if (err) throw err;
         });
         //Tämä tulee esiin web selaimeen
@@ -74,7 +72,7 @@ app.get("/newmessage", function (req, res) {
 
 //POST- toiminto, joka palauttaa käyttäjän lähettämän syötteen ja vastaan ottaa sen AJAX kautta
 app.post("/ajaxmessage", function (req, res) {
-    var data = require('./guestbookdata.json'); //json taulu
+    var data = require('./public/guestbookdata.json'); //json taulu
     console.log(req.body);
     var username = req.body.username;
     var country = req.body.country;
@@ -90,11 +88,23 @@ app.post("/ajaxmessage", function (req, res) {
     //json tieto string
     var jsonStr = JSON.stringify(data);
     //json-string kirjoitetaan tiedostoon
-    fs.writeFile('guestbookdata.json', jsonStr, (err) => {
+    fs.writeFile('./public/guestbookdata.json', jsonStr, (err) => {
         if (err) throw err;
     });
+
+    //Taulukon muodostos web selaimeen
+    var taulu = '<table class="table"><thead><th>username</th><th>country</th><th>date</th><th>message</th></thead><tbody>';
+    for (var i = 0; i < data.length; i++) {
+        taulu += '<tr>' +
+            '<td>' + data[i].username + '</td>' +
+            '<td>' + data[i].country + '</td>' +
+            '<td>' + data[i].date + '</td>' +
+            '<td>' + data[i].message + '</td>' +
+            '<tr>';
+    }
+    taulu += '</tbody></table>'
     //Tämä tulee esiin web selaimeen, Ei päivitä sivua
-    res.send("<h1>Onnestuneesti lomake lähetetty! Alla JSON data</h1><br>" + JSON.stringify(data));
+    res.send("<h1>Onnestuneesti lomake lähetetty! Alla JSON data</h1><br>" + taulu);
 });
 
 //ajax-pyyntö backendiin ja sitten tulostus sivulle.
