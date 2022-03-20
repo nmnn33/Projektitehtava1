@@ -41,6 +41,24 @@ app.post("/newmessage", function (req, res) {
     var country = req.body.country;
     var message = req.body.message;
     var date = new Date;
+    var linkkiTakaisin = `
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+                <h2><a href="index.html">Home</a></h2>
+            </div>
+            <div class="col">
+                <h2><a href="guestbook.html">Guestbook</a></h2>
+            </div>
+            <div class="col">
+                <h2><a href="newmessage.html">newmessage</a></h2>
+            </div>
+            <div class="col">
+                <h2><a href="ajaxmessage.html">ajaxmessage</a></h2>
+            </div>
+        </div>
+    </div>
+    `;
 
     //validaatio
     if (username.length < 4 || country.length < 3 || message.length < 3) {
@@ -61,7 +79,7 @@ app.post("/newmessage", function (req, res) {
             if (err) throw err;
         });
         //Tämä tulee esiin web selaimeen
-        res.send("Lomake lähetetty onnistuneesti! <br>Username: " + username + " <br>Country: " + country + " <br>Message: " + message);
+        res.send("Lomake lähetetty onnistuneesti! <br>Username: " + username + " <br>Country: " + country + " <br>Message: " + message + "<br>" + linkkiTakaisin);
     }
 });
 
